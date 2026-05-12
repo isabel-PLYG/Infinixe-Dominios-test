@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1C1D47">
+<meta name="description" content="Descubre tu verdadero talento con el Test de Dominios de Infinixe">
+<title>Infinixe · Test de Dominios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Nunito:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* ============================================================
+   Infinixe Design System — Color & Type Tokens
+   ============================================================ */
+:root {
+  --ink:            #1A1346;
+  --ink-2:          #2A1F5C;
+  --ink-3:          #4A4070;
+  --ink-muted:      #8884A8;
+  --paper:          #FFFFFF;
+  --paper-2:        #FAF9FC;
+  --surface-soft:   #E9E9EE;
+  --surface-line:   #E0DEEC;
+
+  --ejecucion:           #7C5CD8;
+  --ejecucion-soft:      #EDE7FA;
+  --ejecucion-deep:      #5A3FB5;
+
+  --influencia:          #E5933A;
+  --influencia-soft:     #FCEEDC;
+  --influencia-deep:     #B86E1F;
+
+  --pensamiento:         #1F7A1F;
+  --pensamiento-soft:    #E1F0DE;
+  --pensamiento-deep:    #155512;
+
+  --relacion:            #3F8EE0;
+  --relacion-soft:       #E0EEFB;
+  --relacion-deep:       #1F66B5;
+
+  --font-display:   "Orbitron", "Audiowide", system-ui, sans-serif;
+  --font-ui:        "Nunito", "Nunito Sans", system-ui, sans-serif;
+  --font-mono:      "JetBrains Mono", "SF Mono", Menlo, monospace;
+
+  --sh-1:  0 1px 2px rgba(26,19,70,0.06), 0 1px 1px rgba(26,19,70,0.04);
+  --sh-2:  0 4px 12px rgba(26,19,70,0.08), 0 2px 4px rgba(26,19,70,0.04);
+  --sh-3:  0 12px 28px rgba(26,19,70,0.12), 0 4px 8px rgba(26,19,70,0.06);
+  --sh-4:  0 24px 56px rgba(26,19,70,0.18), 0 8px 16px rgba(26,19,70,0.10);
+
+  --frame-max: 480px;
+  --logo-h: 32px;
+  --frame-radius: 28px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  min-height: 100dvh;
+  background: var(--paper-2);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: contain;
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.stage {
+  width: 100%;
+  max-width: var(--frame-max);
+  min-height: 100dvh;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: var(--sh-3);
+}
+@media (min-width: 720px) {
+  .stage { margin: 24px 0; min-height: calc(100dvh - 48px); max-height: calc(100dvh - 48px); border-radius: var(--frame-radius); overflow: hidden; }
+  body { align-items: center; }
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--surface-line);
+  flex-shrink: 0;
+}
+.topbar img { height: var(--logo-h); width: auto; }
+.topbar .right { font-family: var(--font-mono); font-size: 12px; color: var(--ink-muted); }
+
+.screen { flex: 1; padding: 24px; display: flex; flex-direction: column; gap: 18px; overflow-y: auto; }
+@media (max-height: 700px) { .screen { padding: 18px; gap: 14px; } }
+
+/* --- Inicio --- */
+h1.hero { margin: 0; font-size: clamp(28px, 8vw, 38px); line-height: 1.0; letter-spacing: -0.015em; font-weight: 900; text-transform: uppercase; }
+.lead { margin: 0; font-size: 14px; color: var(--ink-3); line-height: 1.5; }
+.domains-row { display: flex; gap: 8px; }
+.domains-row .pill { flex: 1; padding: 10px 6px; border-radius: 14px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.domains-row .pill .label { font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.marquee { position: relative; overflow: hidden; margin: 0 -24px; height: 170px; mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); }
+.marquee-track { display: flex; gap: 18px; position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 130px; align-items: center; animation: scroll-l 32s linear infinite; will-change: transform; }
+.marquee img { height: 130px; width: auto; animation: float 3.6s ease-in-out infinite; filter: drop-shadow(0 8px 16px rgba(28,29,71,.10)); flex-shrink: 0; }
+.marquee img:nth-child(2n) { animation-duration: 4.4s; animation-delay: -1.2s; }
+.marquee img:nth-child(3n) { animation-duration: 5.0s; animation-delay: -2.0s; }
+@keyframes scroll-l { from { transform: translate(0, -50%) } to { transform: translate(-50%, -50%) } }
+@keyframes float { 0%,100% { transform: translateY(0) rotate(-2deg) } 50% { transform: translateY(-10px) rotate(2deg) } }
+
+label.field { display: flex; flex-direction: column; gap: 4px; }
+label.field span { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted); }
+label.field input { padding: 13px 14px; border-radius: 14px; border: 2px solid var(--surface-line); font-size: 16px; font-family: var(--font-ui); background: var(--paper); color: var(--ink); outline: none; transition: border-color 180ms; -webkit-appearance: none; }
+label.field input:focus { border-color: var(--ejecucion); }
+
+.btn { border: 0; border-radius: 999px; padding: 15px 28px; font-family: var(--font-ui); font-weight: 700; font-size: 16px; letter-spacing: .02em; cursor: pointer; transition: all 200ms cubic-bezier(.22,1,.36,1); }
+.btn:disabled { cursor: not-allowed; opacity: .55; }
+.btn.primary { background: var(--ejecucion); color: var(--paper); }
+.btn.primary:hover:not(:disabled) { background: var(--ejecucion-deep); }
+.btn.ghost { background: transparent; box-shadow: inset 0 0 0 2px var(--ejecucion); color: var(--ejecucion); }
+
+/* --- Swipe --- */
+.progress { display: flex; gap: 5px; width: 100%; }
+.progress span { flex: 1; height: 6px; border-radius: 999px; background: var(--surface-line); transition: background 200ms; }
+.counter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-muted); text-align: center; }
+
+.deck { position: relative; flex: 1; min-height: 360px; display: flex; align-items: center; justify-content: center; touch-action: pan-y; }
+.card { position: absolute; inset: 0; background: var(--paper); border: 3px solid var(--ink); border-radius: 28px; box-shadow: var(--sh-3); padding: 28px 24px; display: flex; flex-direction: column; justify-content: space-between; user-select: none; transition: transform 300ms cubic-bezier(.22,1,.36,1), opacity 300ms; cursor: grab; }
+.card.dragging { transition: none; cursor: grabbing; }
+.card .hint { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); text-align: center; }
+.card .opts { display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: center; }
+.opt { padding: 16px 18px; border-radius: 18px; font-size: 16px; font-weight: 600; line-height: 1.45; color: var(--ink); text-wrap: pretty; cursor: pointer; transition: transform 180ms; }
+.opt:hover { transform: translateY(-2px); }
+.opt.left { background: var(--surface-soft); border-left: 5px solid var(--c-left); }
+.opt.right { background: var(--surface-soft); border-right: 5px solid var(--c-right); text-align: right; }
+.opt .arrow { font-family: var(--font-mono); opacity: .55; font-weight: 800; }
+
+.actions { display: flex; gap: 24px; justify-content: center; align-items: center; padding-top: 8px; }
+.fab { width: 64px; height: 64px; border-radius: 50%; border: 0; box-shadow: var(--sh-3); cursor: pointer; font-size: 28px; color: var(--paper); display: flex; align-items: center; justify-content: center; transition: transform 180ms; -webkit-tap-highlight-color: transparent; }
+.fab:active { transform: scale(.92); }
+.fab.left { background: var(--c-left); }
+.fab.right { background: var(--c-right); }
+.actions .hint { font-family: var(--font-mono); font-size: 10px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: .06em; }
+
+.glow { position: absolute; inset: 0; border-radius: 28px; pointer-events: none; opacity: 0; transition: opacity 120ms; }
+.glow.left { background: var(--c-left); }
+.glow.right { background: var(--c-right); }
+
+/* --- Resultados --- */
+.donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0; margin: -4px 0 -8px; }
+.anillo { width: min(80vw, 320px); height: auto; display: block; overflow: visible; }
+.anillo .halo { animation: anillo-pulse 2.6s ease-in-out infinite; }
+@keyframes anillo-pulse { 0%, 100% { opacity: .55; } 50% { opacity: .95; } }
+.top-label { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-muted); }
+.talents-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.talents-grid .t-card { aspect-ratio: 1; border-radius: 16px; padding: 8px; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 2px rgba(0,0,0,.04); transition: transform 180ms; cursor: zoom-in; }
+.talents-grid .t-card:hover { transform: translateY(-2px); }
+.talents-grid .t-card img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(28,29,71,.10)); }
+
+.lightbox { position: fixed; inset: 0; background: rgba(28,29,71,.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 24px; z-index: 80; opacity: 0; pointer-events: none; transition: opacity 220ms ease; cursor: zoom-out; }
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox .lb-stage { position: relative; max-width: 92vw; max-height: 86vh; display: flex; align-items: center; justify-content: center; }
+.lightbox img { max-width: 100%; max-height: 86vh; width: auto; height: auto; filter: drop-shadow(0 24px 48px rgba(0,0,0,.35)); transform: scale(.85); transition: transform 280ms cubic-bezier(.22,1.2,.36,1); }
+.lightbox.open img { transform: scale(1); }
+.lightbox .lb-close { position: absolute; top: -14px; right: -14px; width: 40px; height: 40px; border-radius: 50%; background: var(--paper); border: 0; box-shadow: var(--sh-3); color: var(--ink); font-size: 20px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.lightbox .lb-hint { position: absolute; bottom: -36px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.8); font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.top-dom { font-size: clamp(24px, 7vw, 32px); font-weight: 900; letter-spacing: -.015em; text-transform: uppercase; line-height: 1; }
+.breakdown { display: flex; flex-direction: column; gap: 8px; }
+.row { display: grid; grid-template-columns: 130px 1fr 52px; align-items: center; padding: 14px 16px; border-radius: 16px; gap: 12px; }
+.row .name { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; min-width: 0; }
+.row .bar { height: 8px; background: rgba(255,255,255,.5); border-radius: 999px; overflow: hidden; }
+.row .bar i { display: block; height: 100%; border-radius: inherit; }
+.row .pct { font-family: var(--font-mono); font-weight: 700; font-size: 15px; text-align: right; }
+
+.glyph { width: 22px; height: 22px; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.glyph.r { fill: currentColor; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="topbar">
+    <img src="project/assets/logo-mark.png" alt="INFINIXE">
+    <div class="right" id="topbar-right">Test de Dominios</div>
+  </div>
+  <div id="root" class="screen"></div>
+</div>
+
+<!-- Lightbox (rendered outside .stage so it can cover full viewport) -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lb-stage">
+    <img id="lb-img" src="" alt="">
+    <button class="lb-close" id="lb-close" aria-label="Cerrar">✕</button>
+    <span class="lb-hint">Toca para cerrar</span>
+  </div>
+</div>
+
+<script>
+// ---------- DATA ----------
+const DOMAINS = {
+  e: { name: 'Ejecución',   color: 'var(--ejecucion)',   soft: 'var(--ejecucion-soft)',   deep: 'var(--ejecucion-deep)',   hex: '#7C5CD8' },
+  i: { name: 'Influencia',  color: 'var(--influencia)',  soft: 'var(--influencia-soft)',  deep: 'var(--influencia-deep)',  hex: '#E5933A' },
+  p: { name: 'Pensamiento', color: 'var(--pensamiento)', soft: 'var(--pensamiento-soft)', deep: 'var(--pensamiento-deep)', hex: '#1F7A1F' },
+  r: { name: 'Relaciones',  color: 'var(--relacion)',    soft: 'var(--relacion-soft)',    deep: 'var(--relacion-deep)',    hex: '#3F8EE0' },
+};
+
+const COMPARISONS = [
+  { left:{ dom:'e', text:'Soy consistente, siempre cumplo en tiempo y forma a lo que me comprometo.' },              right:{ dom:'i', text:'Disfruto hablar en público y conectar con las personas a través de ideas.' } },
+  { left:{ dom:'i', text:'Me siento cómodo liderando iniciativas.' },                                                  right:{ dom:'r', text:'Ayudo a los demás a poner en palabras lo que sienten.' } },
+  { left:{ dom:'r', text:'Me siento responsable por el impacto que tengo en otros y en el mundo.' },                  right:{ dom:'p', text:'Me motiva el proceso de mejorar mis habilidades y conocimientos.' } },
+  { left:{ dom:'p', text:'Necesito entender a fondo un tema antes de pasar a la acción.' },                            right:{ dom:'e', text:'Soy experto en organizar y optimizar recursos, para maximizar los esfuerzos.' } },
+  { left:{ dom:'i', text:'Disfruto estar en roles visibles donde puedo brillar frente a todos.' },                     right:{ dom:'r', text:'Para mí, el éxito se mide por la calidad y profundidad de mis relaciones.' } },
+  { left:{ dom:'r', text:'Vivo el presente y tomo decisiones día a día sin aferrarme al control total.' },             right:{ dom:'e', text:'Me energiza identificar lo que no funciona bien y mejorarlo.' } },
+  { left:{ dom:'p', text:'Me tomo el tiempo para reflexionar sobre ideas complejas en vez de evitarlas.' },            right:{ dom:'i', text:'Suelo contagiar mi entusiasmo, inspirando a otras personas.' } },
+  { left:{ dom:'e', text:'Soy la persona adecuada si quieres transformar una idea en un plan de acción.' },            right:{ dom:'r', text:'Empatizo con las personas y encuentro formas para ayudarlas a crecer.' } },
+  { left:{ dom:'i', text:'Me impulsa saber que puedo destacar frente a otros.' },                                      right:{ dom:'p', text:'Se me facilita anticipar escenarios e identificar patrones para tomar decisiones.' } },
+  { left:{ dom:'e', text:'Cuando trabajo siempre priorizo el orden y la eficiencia.' },                                right:{ dom:'i', text:'Busco dejar huella en lo que hago y ser reconocido por ello.' } },
+  { left:{ dom:'p', text:'Me gusta descomponer los problemas hasta entenderlos a fondo.' },                            right:{ dom:'r', text:'Valido las perspectivas individuales en un equipo antes de tomar una decisión.' } },
+  { left:{ dom:'e', text:'Me anticipo a los posibles riesgos y obstáculos en todo momento.' },                         right:{ dom:'p', text:'Disfruto encontrar nuevas formas de ver o resolver las cosas.' } },
+];
+
+const TALENT_CODES = ['e1','e2','e3','e4','e5','e6','e7','e8','i1','i2','i3','i4','i5','i6','i7','i8','p1','p2','p3','p4','p5','p6','p7','p8','r1','r2','r3','r4','r5','r6','r7','r8'];
+
+// ---------- STATE ----------
+const state = {
+  screen: 'inicio',
+  nombre: '',
+  correo: '',
+  idx: 0,
+  scores: { e: 0, i: 0, p: 0, r: 0 },
+};
+
+const root = document.getElementById('root');
+const topbarRight = document.getElementById('topbar-right');
+
+function render() {
+  topbarRight.textContent =
+    state.screen === 'inicio'     ? 'Test de Dominios' :
+    state.screen === 'swipe'      ? `${state.idx + 1}/${COMPARISONS.length}` :
+    state.screen === 'curso'      ? 'Un paso más' :
+                                    'Resultados';
+  root.innerHTML = '';
+  ({ inicio: renderInicio, swipe: renderSwipe, resultados: renderResultados, curso: renderCurso })[state.screen]();
+}
+
+// ---------- INICIO ----------
+function renderInicio() {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex; flex-direction:column; gap:18px; flex:1;';
+  wrap.innerHTML = `
+    <div class="marquee">
+      <div class="marquee-track">
+        ${[...TALENT_CODES, ...TALENT_CODES].map(c => `<img src="project/assets/talents/${c}.png" alt="" loading="lazy">`).join('')}
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:6px;">
+      <span style="font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color: var(--ink-muted);">Test de dominios</span>
+      <h1 class="hero">Descubre tu<br><span style="color: var(--ejecucion);">verdadero talento</span></h1>
+    </div>
+    <div class="domains-row">
+      ${Object.entries(DOMAINS).map(([k, d]) => `
+        <div class="pill" style="background:${d.soft}; color:${d.deep};">
+          ${glyph(k, d.color)}
+          <span class="label">${d.name}</span>
+        </div>
+      `).join('')}
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <label class="field">
+        <span>Nombre</span>
+        <input type="text" id="in-nombre" placeholder="Tu nombre" autocomplete="name" value="${escapeHTML(state.nombre)}">
+      </label>
+      <label class="field">
+        <span>Correo</span>
+        <input type="email" id="in-correo" placeholder="tu@correo.com" autocomplete="email" inputmode="email" value="${escapeHTML(state.correo)}">
+      </label>
+    </div>
+    <button class="btn primary" id="start-btn" disabled>Comenzar test</button>
+  `;
+  root.appendChild(wrap);
+
+  const nombreEl = wrap.querySelector('#in-nombre');
+  const correoEl = wrap.querySelector('#in-correo');
+  const startBtn = wrap.querySelector('#start-btn');
+
+  const validate = () => {
+    state.nombre = nombreEl.value;
+    state.correo = correoEl.value;
+    const ok = state.nombre.trim().length >= 2 && /.+@.+\..+/.test(state.correo);
+    startBtn.disabled = !ok;
+  };
+  nombreEl.addEventListener('input', validate);
+  correoEl.addEventListener('input', validate);
+  validate();
+
+  startBtn.addEventListener('click', () => {
+    state.idx = 0;
+    state.scores = { e: 0, i: 0, p: 0, r: 0 };
+    state.screen = 'swipe';
+    render();
+  });
+}
+
+// ---------- SWIPE ----------
+function renderSwipe() {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex; flex-direction:column; gap:14px; flex:1;';
+  const total = COMPARISONS.length;
+  wrap.innerHTML = `
+    <div class="progress">${Array.from({length: total}).map((_,i) => `<span style="${i < state.idx ? 'background: var(--ink);' : ''}"></span>`).join('')}</div>
+    <div class="counter">${state.idx + 1} de ${total}</div>
+    <div class="deck" id="deck"></div>
+    <div class="actions">
+      <button class="fab left" id="fab-left" aria-label="Elegir izquierda">←</button>
+      <span class="hint">Arrastra o toca</span>
+      <button class="fab right" id="fab-right" aria-label="Elegir derecha">→</button>
+    </div>
+  `;
+  root.appendChild(wrap);
+
+  const deck = wrap.querySelector('#deck');
+  const c = COMPARISONS[state.idx];
+  const ld = DOMAINS[c.left.dom], rd = DOMAINS[c.right.dom];
+  deck.style.setProperty('--c-left', ld.color);
+  deck.style.setProperty('--c-right', rd.color);
+
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="glow left"></div>
+    <div class="glow right"></div>
+    <div class="hint">¿Cuál te describe más?</div>
+    <div class="opts">
+      <div class="opt left"><span class="arrow">← </span>${c.left.text}</div>
+      <div class="opt right">${c.right.text}<span class="arrow"> →</span></div>
+    </div>
+    <div class="hint">Desliza · izquierda o derecha</div>
+  `;
+  deck.appendChild(card);
+
+  let startX = null, startY = null, dx = 0, dy = 0, dragging = false, moved = false;
+  const DRAG_THRESHOLD = 6;
+  const glowL = card.querySelector('.glow.left');
+  const glowR = card.querySelector('.glow.right');
+
+  const onDown = e => {
+    const pt = e.touches ? e.touches[0] : e;
+    startX = pt.clientX; startY = pt.clientY;
+    dragging = true; moved = false; dx = 0; dy = 0;
+  };
+  const onMove = e => {
+    if (!dragging) return;
+    const pt = e.touches ? e.touches[0] : e;
+    dx = pt.clientX - startX;
+    dy = pt.clientY - startY;
+    if (!moved && (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD)) {
+      if (Math.abs(dx) > Math.abs(dy)) { moved = true; card.classList.add('dragging'); }
+      else { dragging = false; return; }
+    }
+    if (!moved) return;
+    if (e.cancelable) e.preventDefault();
+    const tilt = dx / 18;
+    card.style.transform = `translateX(${dx}px) rotate(${tilt}deg)`;
+    glowL.style.opacity = dx < 0 ? Math.min(.22, -dx / 280) : 0;
+    glowR.style.opacity = dx > 0 ? Math.min(.22,  dx / 280) : 0;
+  };
+  const onUp = () => {
+    if (!dragging) return;
+    dragging = false; card.classList.remove('dragging');
+    if (moved && Math.abs(dx) > 90) {
+      releaseCard(card, dx > 0 ? 'right' : 'left');
+    } else {
+      card.style.transform = '';
+      glowL.style.opacity = 0; glowR.style.opacity = 0;
+    }
+    dx = 0; dy = 0; startX = null;
+  };
+
+  card.querySelector('.opt.left').addEventListener('click', () => { if (!moved) choose('left'); });
+  card.querySelector('.opt.right').addEventListener('click', () => { if (!moved) choose('right'); });
+
+  card.addEventListener('mousedown', onDown);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onUp);
+  card.addEventListener('touchstart', onDown, { passive: true });
+  card.addEventListener('touchmove', onMove, { passive: false });
+  card.addEventListener('touchend', onUp);
+
+  card._cleanup = () => {
+    window.removeEventListener('mousemove', onMove);
+    window.removeEventListener('mouseup', onUp);
+  };
+
+  wrap.querySelector('#fab-left').addEventListener('click', () => choose('left'));
+  wrap.querySelector('#fab-right').addEventListener('click', () => choose('right'));
+}
+
+function releaseCard(card, dir) {
+  const off = dir === 'right' ? 600 : -600;
+  card.style.transform = `translateX(${off}px) rotate(${dir === 'right' ? 24 : -24}deg)`;
+  card.style.opacity = 0;
+  setTimeout(() => { card._cleanup && card._cleanup(); choose(dir); }, 280);
+}
+
+function choose(dir) {
+  const c = COMPARISONS[state.idx];
+  const dom = dir === 'left' ? c.left.dom : c.right.dom;
+  state.scores[dom] += 1;
+  state.idx += 1;
+  if (state.idx >= COMPARISONS.length) { state.screen = 'resultados'; }
+  render();
+}
+
+// ---------- RESULTADOS ----------
+function renderResultados() {
+  const total = COMPARISONS.length;
+  const pct = Object.fromEntries(
+    Object.keys(DOMAINS).map(k => [k, Math.round(state.scores[k] / total * 100)])
+  );
+  const topKey = Object.keys(DOMAINS).reduce((a, b) => state.scores[a] >= state.scores[b] ? a : b);
+  const td = DOMAINS[topKey];
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex; flex-direction:column; gap:18px; flex:1;';
+  wrap.innerHTML = `
+    <div class="donut-wrap">
+      <span class="top-label">Tu dominio más fuerte</span>
+      <span class="top-dom" style="color:${td.color}">${td.name}</span>
+      ${anilloSVG(pct)}
+    </div>
+    <div class="breakdown">
+      ${Object.entries(DOMAINS).map(([k, d]) => `
+        <div class="row" style="background:${d.soft}; color:${d.deep};">
+          <span class="name">${glyph(k, d.color)} ${d.name}</span>
+          <span class="bar"><i style="width:${pct[k]}%; background:${d.color};"></i></span>
+          <span class="pct" style="color:${d.color};">${pct[k]}%</span>
+        </div>
+      `).join('')}
+    </div>
+    <button class="btn primary" id="send-btn">Potencia tu Talento →</button>
+    <p style="font-size:11px; color: var(--ink-muted); text-align:center; margin:0; line-height:1.5;">
+      Resultado para <b style="color: var(--ink);">${escapeHTML(state.nombre || '—')}</b> · ${escapeHTML(state.correo || '—')}
+    </p>
+  `;
+  root.appendChild(wrap);
+  wrap.querySelector('#send-btn').addEventListener('click', () => { state.screen = 'curso'; render(); });
+}
+
+// ---------- CURSO ----------
+function renderCurso() {
+  const topKey = Object.keys(DOMAINS).reduce((a, b) => state.scores[a] >= state.scores[b] ? a : b);
+  const td = DOMAINS[topKey];
+  const SKOOL_URL = 'https://www.skool.com/la-maquina-infinita/classroom';
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex; flex-direction:column; gap:18px; flex:1;';
+  wrap.innerHTML = `
+    <div style="display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;">
+      <span style="font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color: var(--ink-muted);">Los 8 talentos de tu dominio</span>
+      <h1 class="hero" style="font-size: clamp(22px, 6vw, 28px); text-align:center;">Aprende a potenciar tu<br><span style="color:${td.color};">${td.name}</span></h1>
+    </div>
+
+    <div class="talents-grid" id="talents-grid" style="background:${td.soft}; padding: 12px; border-radius: 22px;">
+      ${[1,2,3,4,5,6,7,8].map(n => `
+        <div class="t-card" data-talent="${topKey}${n}" style="background: var(--paper);">
+          <img src="project/assets/talents/${topKey}${n}.png" alt="Talento ${topKey.toUpperCase()}${n}" loading="lazy">
+        </div>
+      `).join('')}
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap: 10px;">
+      <p style="margin:0; font-size:15px; line-height:1.5; color: var(--ink); text-align:center;">
+        Cada uno de estos 8 talentos vive dentro de tu dominio <b style="color:${td.color};">${td.name}</b>. Únete a la comunidad y aprende a <b>identificarlos, potenciarlos y aplicarlos</b> en tu día a día.
+      </p>
+    </div>
+
+    <p style="font-size:12px; color: var(--ink-3); text-align:center; margin:0; line-height:1.5; padding: 10px 14px; background: var(--surface-soft); border-radius: 12px;">
+      Para recibir tus resultados por correo, presiona <b style="color: var(--ink);">Aprender a potenciarlo</b>.
+    </p>
+
+    <a class="btn primary" id="go-skool" href="${SKOOL_URL}" target="_blank" rel="noopener" style="background:${td.color}; text-decoration:none; text-align:center; display:block;">Aprender a potenciarlo →</a>
+    <button class="btn" id="go-back" style="background: transparent; box-shadow: inset 0 0 0 2px var(--surface-line); color: var(--ink-3);">← Volver a resultados</button>
+
+    <p style="font-size:11px; color: var(--ink-muted); text-align:center; margin:0; line-height:1.6;">
+      Enviaremos los resultados a <b style="color: var(--ink);">${escapeHTML(state.correo || '—')}</b>.
+    </p>
+  `;
+  root.appendChild(wrap);
+  wrap.querySelector('#go-back').addEventListener('click', () => { state.screen = 'resultados'; render(); });
+  wrap.querySelector('#go-skool').addEventListener('click', () => submitResults());
+
+  // Lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const closeLb = () => { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); };
+
+  wrap.querySelectorAll('.t-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.getAttribute('data-talent');
+      lbImg.src = `project/assets/talents/${id}.png`;
+      lbImg.alt = `Talento ${id.toUpperCase()}`;
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+    });
+  });
+  lb.addEventListener('click', closeLb);
+  document.getElementById('lb-close').addEventListener('click', e => { e.stopPropagation(); closeLb(); });
+
+  const onKey = e => {
+    if (e.key === 'Escape') closeLb();
+  };
+  window.addEventListener('keydown', onKey);
+}
+
+// ---------- RING CHART ----------
+function anilloSVG(pct) {
+  const segs = [
+    { k: 'e', v: pct.e, c: DOMAINS.e.hex },
+    { k: 'i', v: pct.i, c: DOMAINS.i.hex },
+    { k: 'p', v: pct.p, c: DOMAINS.p.hex },
+    { k: 'r', v: pct.r, c: DOMAINS.r.hex },
+  ];
+  const total = segs.reduce((s, x) => s + x.v, 0) || 1;
+
+  const cx = 100, cy = 100;
+  const rInner = 52, rOuter = 86, rHalo = 100;
+  const pol = (r, deg) => {
+    const a = (deg - 90) * Math.PI / 180;
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  };
+
+  const wedge = (rIn, rOut, a0, a1) => {
+    const [x0o, y0o] = pol(rOut, a0);
+    const [x1o, y1o] = pol(rOut, a1);
+    const [x0i, y0i] = pol(rIn, a0);
+    const [x1i, y1i] = pol(rIn, a1);
+    const large = (a1 - a0) > 180 ? 1 : 0;
+    return `M ${x0o.toFixed(2)} ${y0o.toFixed(2)} A ${rOut} ${rOut} 0 ${large} 1 ${x1o.toFixed(2)} ${y1o.toFixed(2)} L ${x1i.toFixed(2)} ${y1i.toFixed(2)} A ${rIn} ${rIn} 0 ${large} 0 ${x0i.toFixed(2)} ${y0i.toFixed(2)} Z`;
+  };
+
+  let angle = 0;
+  const halos = [];
+  const arcs = [];
+  segs.forEach(s => {
+    const sweep = (s.v / total) * 360;
+    if (sweep <= 0) return;
+    const a0 = angle, a1 = angle + sweep;
+    angle = a1;
+    halos.push(`<path class="halo" d="${wedge(rOuter - 4, rHalo, a0, a1)}" fill="${s.c}"/>`);
+    arcs.push(`<path d="${wedge(rInner, rOuter, a0, a1)}" fill="${s.c}"/>`);
+  });
+
+  return `<svg class="anillo" viewBox="-20 -20 240 240">
+    <defs>
+      <filter id="halo-blur" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="5"/>
+      </filter>
+    </defs>
+    <g filter="url(#halo-blur)">${halos.join('')}</g>
+    ${arcs.join('')}
+  </svg>`;
+}
+
+// ---------- GLYPHS ----------
+function glyph(dom, color) {
+  const s = `class="glyph${dom === 'r' ? ' r' : ''}" stroke="${color}"`;
+  if (dom === 'e') return `<svg viewBox="0 0 24 24" ${s}><path d="M7 11V5a1.5 1.5 0 0 1 3 0v6"/><path d="M10 11V4a1.5 1.5 0 0 1 3 0v7"/><path d="M13 11V5a1.5 1.5 0 0 1 3 0v6"/><path d="M16 11V8a1.5 1.5 0 0 1 3 0v7a6 6 0 0 1-6 6h-1.5a6 6 0 0 1-5.3-3.2L4 14a1.7 1.7 0 0 1 2.5-2.2L7 12"/></svg>`;
+  if (dom === 'i') return `<svg viewBox="0 0 24 24" ${s}><circle cx="12" cy="5" r="2.2"/><path d="M12 7.5v6.5"/><path d="M12 14l-3.5 6"/><path d="M12 14l3.5 6"/><path d="M12 9.5l-4.5 3"/><path d="M12 9.5l4.5 3"/></svg>`;
+  if (dom === 'p') return `<svg viewBox="0 0 24 24" ${s}><path d="M12 5a3 3 0 0 0-6 0 3 3 0 0 0-2 5 3 3 0 0 0 1 5 3 3 0 0 0 4 4 3 3 0 0 0 3 0V5z"/><path d="M12 5a3 3 0 0 1 6 0 3 3 0 0 1 2 5 3 3 0 0 1-1 5 3 3 0 0 1-4 4 3 3 0 0 1-3 0V5z"/></svg>`;
+  if (dom === 'r') return `<svg viewBox="0 0 24 24" ${s} fill="${color}"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.7A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>`;
+  return '';
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ---------- SUBMIT RESULTS ----------
+// Replace this URL after deploying your Google Apps Script (see setup guide)
+const SCRIPT_URL = '';
+
+function submitResults() {
+  if (!SCRIPT_URL) return;
+  const total = COMPARISONS.length;
+  const pct = Object.fromEntries(
+    Object.keys(DOMAINS).map(k => [k, Math.round(state.scores[k] / total * 100)])
+  );
+  const topKey = Object.keys(DOMAINS).reduce((a, b) => state.scores[a] >= state.scores[b] ? a : b);
+  const payload = {
+    nombre:    state.nombre,
+    correo:    state.correo,
+    dominante: DOMAINS[topKey].name,
+    scores:    { ...state.scores },
+    pct,
+  };
+  const fd = new FormData();
+  fd.append('payload', JSON.stringify(payload));
+  fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: fd }).catch(() => {});
+}
+
+// ---------- KEYBOARD ----------
+window.addEventListener('keydown', e => {
+  if (state.screen !== 'swipe') return;
+  if (e.key === 'ArrowLeft') choose('left');
+  if (e.key === 'ArrowRight') choose('right');
+});
+
+render();
+</script>
+</body>
+</html>
