@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1C1D47">
-<meta name="description" content="Descubre tu verdadero talento con el Test de Dominios de Infinixe">
+<meta name="description" content="Descubre el balance de tus talentos con el Test de Dominios de Infinixe">
 <title>Infinixe · Test de Dominios</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -263,7 +263,7 @@ function renderInicio() {
     </div>
     <div style="display:flex; flex-direction:column; gap:6px;">
       <span style="font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color: var(--ink-muted);">Test de dominios</span>
-      <h1 class="hero">Descubre tu<br><span style="color: var(--ejecucion);">verdadero talento</span></h1>
+      <h1 class="hero">Descubre el balance<br><span style="color: var(--ejecucion);">de tus talentos</span></h1>
     </div>
     <div class="domains-row">
       ${Object.entries(DOMAINS).map(([k, d]) => `
@@ -329,8 +329,8 @@ function renderSwipe() {
   const deck = wrap.querySelector('#deck');
   const c = COMPARISONS[state.idx];
   const ld = DOMAINS[c.left.dom], rd = DOMAINS[c.right.dom];
-  deck.style.setProperty('--c-left', ld.color);
-  deck.style.setProperty('--c-right', rd.color);
+  deck.style.setProperty('--c-left', '#7C5CD8');
+  deck.style.setProperty('--c-right', '#7C5CD8');
 
   const card = document.createElement('div');
   card.className = 'card';
