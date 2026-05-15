@@ -225,6 +225,15 @@ const COMPARISONS = [
   { left:{ dom:'e', text:'Cuando trabajo siempre priorizo el orden y la eficiencia.' },                                right:{ dom:'i', text:'Busco dejar huella en lo que hago y ser reconocido por ello.' } },
   { left:{ dom:'p', text:'Me gusta descomponer los problemas hasta entenderlos a fondo.' },                            right:{ dom:'r', text:'Valido las perspectivas individuales en un equipo antes de tomar una decisión.' } },
   { left:{ dom:'e', text:'Me anticipo a los posibles riesgos y obstáculos en todo momento.' },                         right:{ dom:'p', text:'Disfruto encontrar nuevas formas de ver o resolver las cosas.' } },
+  // — 8 nuevas preguntas (talentos: e1 Logrador, e3 Creencia, i1 Activador, i6 Auto-confianza, p3 Futurista, p5 Coleccionador, r6 Individualización, r7 Positivo) —
+  { left:{ dom:'e', text:'Siento el deseo constante de alcanzar metas.' },                                             right:{ dom:'p', text:'Me entusiasma imaginar cómo podría ser el futuro.' } },
+  { left:{ dom:'i', text:'Yo hago que las cosas sucedan, transformando pensamientos en acciones.' },                   right:{ dom:'r', text:'Transmito entusiasmo y buena energía al equipo.' } },
+  { left:{ dom:'p', text:'Me encanta reunir información que podría ser útil más adelante.' },                          right:{ dom:'e', text:'Mis valores guían cada decisión que tomo, buscando siempre trabajo significativo.' } },
+  { left:{ dom:'r', text:'Observo las cualidades únicas de cada persona.' },                                           right:{ dom:'i', text:'Confío en mis decisiones, incluso si van contra la corriente.' } },
+  { left:{ dom:'e', text:'Tengo una dirección clara y me concentro en mis metas, priorizando lo que me acerca a ellas.' }, right:{ dom:'r', text:'Reconozco y cultivo el potencial de los demás.' } },
+  { left:{ dom:'i', text:'Me entusiasma convertir algo bueno en excelente.' },                                         right:{ dom:'p', text:'Investigo el pasado para entender mejor el presente.' } },
+  { left:{ dom:'p', text:'Encuentro patrones en la historia que me ayudan a tomar decisiones.' },                      right:{ dom:'i', text:'Me encanta el reto de conocer nuevas personas, disfruto de romper el hielo.' } },
+  { left:{ dom:'r', text:'Soy auténtico al compartir mis emociones para crear vínculos reales.' },                    right:{ dom:'e', text:'Necesito que lo que hago tenga un propósito profundo y esté alineado con mi ética personal.' } },
 ];
 
 const TALENT_CODES = ['e1','e2','e3','e4','e5','e6','e7','e8','i1','i2','i3','i4','i5','i6','i7','i8','p1','p2','p3','p4','p5','p6','p7','p8','r1','r2','r3','r4','r5','r6','r7','r8'];
@@ -456,29 +465,48 @@ function renderResultados() {
 
 // ---------- CURSO ----------
 function renderCurso() {
-  const topKey = Object.keys(DOMAINS).reduce((a, b) => state.scores[a] >= state.scores[b] ? a : b);
+  const sortedKeys = Object.keys(DOMAINS).sort((a, b) => state.scores[b] - state.scores[a]);
+  const topKey = sortedKeys[0];
   const td = DOMAINS[topKey];
   const SKOOL_URL = 'https://www.skool.com/la-maquina-infinita/classroom';
+
+  // Distribute 8 card slots proportionally across all 4 domains
+  const totalScore = Object.values(state.scores).reduce((a, b) => a + b, 0) || 1;
+  const counts = {};
+  let assigned = 0;
+  sortedKeys.forEach((k, idx) => {
+    if (idx === sortedKeys.length - 1) {
+      counts[k] = Math.max(0, 8 - assigned);
+    } else {
+      counts[k] = Math.min(Math.round(state.scores[k] / totalScore * 8), 8 - assigned);
+      assigned += counts[k];
+    }
+  });
+  // Ensure at least 1 card for top domain
+  if (counts[topKey] === 0) { counts[topKey] = 1; const last = sortedKeys[sortedKeys.length-1]; if (counts[last] > 0) counts[last]--; }
+
+  const talentCards = [];
+  sortedKeys.forEach(k => { for (let n = 1; n <= counts[k]; n++) talentCards.push({ dom: k, num: n }); });
 
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex; flex-direction:column; gap:18px; flex:1;';
   wrap.innerHTML = `
     <div style="display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;">
-      <span style="font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color: var(--ink-muted);">Los 8 talentos de tu dominio</span>
+      <span style="font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color: var(--ink-muted);">Tus talentos principales</span>
       <h1 class="hero" style="font-size: clamp(22px, 6vw, 28px); text-align:center;">Aprende a potenciar tu<br><span style="color:${td.color};">${td.name}</span></h1>
     </div>
 
-    <div class="talents-grid" id="talents-grid" style="background:${td.soft}; padding: 12px; border-radius: 22px;">
-      ${[1,2,3,4,5,6,7,8].map(n => `
-        <div class="t-card" data-talent="${topKey}${n}" style="background: var(--paper);">
-          <img src="project/assets/talents/${topKey}${n}.png" alt="Talento ${topKey.toUpperCase()}${n}" loading="lazy">
+    <div class="talents-grid" id="talents-grid" style="background: var(--surface-soft); padding: 12px; border-radius: 22px;">
+      ${talentCards.map(c => `
+        <div class="t-card" data-talent="${c.dom}${c.num}" style="background: ${DOMAINS[c.dom].soft};">
+          <img src="project/assets/talents/${c.dom}${c.num}.png" alt="Talento ${c.dom.toUpperCase()}${c.num}" loading="lazy">
         </div>
       `).join('')}
     </div>
 
     <div style="display:flex; flex-direction:column; gap: 10px;">
       <p style="margin:0; font-size:15px; line-height:1.5; color: var(--ink); text-align:center;">
-        Cada uno de estos 8 talentos vive dentro de tu dominio <b style="color:${td.color};">${td.name}</b>. Únete a la comunidad y aprende a <b>identificarlos, potenciarlos y aplicarlos</b> en tu día a día.
+        Estos son tus 8 talentos más representativos combinando todos tus dominios. Únete a la comunidad y aprende a <b>identificarlos, potenciarlos y aplicarlos</b> en tu día a día.
       </p>
     </div>
 
