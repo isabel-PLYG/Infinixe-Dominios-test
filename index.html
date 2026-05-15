@@ -142,6 +142,9 @@ label.field input:focus { border-color: var(--ejecucion); }
 .opt .arrow { font-family: var(--font-mono); opacity: .55; font-weight: 800; }
 
 .actions { display: flex; gap: 24px; justify-content: center; align-items: center; padding-top: 8px; }
+.btn-neutro { background: transparent; border: 0; box-shadow: inset 0 0 0 1.5px var(--surface-line); color: var(--ink-3); font-family: var(--font-ui); font-weight: 600; font-size: 13px; padding: 12px 20px; border-radius: 999px; cursor: pointer; transition: all 180ms; align-self: center; margin-top: 4px; -webkit-tap-highlight-color: transparent; }
+.btn-neutro:hover { background: var(--surface-soft); color: var(--ink); }
+.btn-neutro:active { transform: scale(.96); }
 .fab { width: 64px; height: 64px; border-radius: 50%; border: 0; box-shadow: var(--sh-3); cursor: pointer; font-size: 28px; color: var(--paper); display: flex; align-items: center; justify-content: center; transition: transform 180ms; -webkit-tap-highlight-color: transparent; }
 .fab:active { transform: scale(.92); }
 .fab.left { background: var(--c-left); }
@@ -213,27 +216,49 @@ const DOMAINS = {
 };
 
 const COMPARISONS = [
-  { left:{ dom:'e', text:'Soy consistente, siempre cumplo en tiempo y forma a lo que me comprometo.' },              right:{ dom:'i', text:'Disfruto hablar en público y conectar con las personas a través de ideas.' } },
-  { left:{ dom:'i', text:'Me siento cómodo liderando iniciativas.' },                                                  right:{ dom:'r', text:'Ayudo a los demás a poner en palabras lo que sienten.' } },
-  { left:{ dom:'r', text:'Me siento responsable por el impacto que tengo en otros y en el mundo.' },                  right:{ dom:'p', text:'Me motiva el proceso de mejorar mis habilidades y conocimientos.' } },
-  { left:{ dom:'p', text:'Necesito entender a fondo un tema antes de pasar a la acción.' },                            right:{ dom:'e', text:'Soy experto en organizar y optimizar recursos, para maximizar los esfuerzos.' } },
-  { left:{ dom:'i', text:'Disfruto estar en roles visibles donde puedo brillar frente a todos.' },                     right:{ dom:'r', text:'Para mí, el éxito se mide por la calidad y profundidad de mis relaciones.' } },
-  { left:{ dom:'r', text:'Vivo el presente y tomo decisiones día a día sin aferrarme al control total.' },             right:{ dom:'e', text:'Me energiza identificar lo que no funciona bien y mejorarlo.' } },
-  { left:{ dom:'p', text:'Me tomo el tiempo para reflexionar sobre ideas complejas en vez de evitarlas.' },            right:{ dom:'i', text:'Suelo contagiar mi entusiasmo, inspirando a otras personas.' } },
-  { left:{ dom:'e', text:'Soy la persona adecuada si quieres transformar una idea en un plan de acción.' },            right:{ dom:'r', text:'Empatizo con las personas y encuentro formas para ayudarlas a crecer.' } },
-  { left:{ dom:'i', text:'Me impulsa saber que puedo destacar frente a otros.' },                                      right:{ dom:'p', text:'Se me facilita anticipar escenarios e identificar patrones para tomar decisiones.' } },
-  { left:{ dom:'e', text:'Cuando trabajo siempre priorizo el orden y la eficiencia.' },                                right:{ dom:'i', text:'Busco dejar huella en lo que hago y ser reconocido por ello.' } },
-  { left:{ dom:'p', text:'Me gusta descomponer los problemas hasta entenderlos a fondo.' },                            right:{ dom:'r', text:'Valido las perspectivas individuales en un equipo antes de tomar una decisión.' } },
-  { left:{ dom:'e', text:'Me anticipo a los posibles riesgos y obstáculos en todo momento.' },                         right:{ dom:'p', text:'Disfruto encontrar nuevas formas de ver o resolver las cosas.' } },
-  // — 8 nuevas preguntas (talentos: e1 Logrador, e3 Creencia, i1 Activador, i6 Auto-confianza, p3 Futurista, p5 Coleccionador, r6 Individualización, r7 Positivo) —
-  { left:{ dom:'e', text:'Siento el deseo constante de alcanzar metas.' },                                             right:{ dom:'p', text:'Me entusiasma imaginar cómo podría ser el futuro.' } },
-  { left:{ dom:'i', text:'Yo hago que las cosas sucedan, transformando pensamientos en acciones.' },                   right:{ dom:'r', text:'Transmito entusiasmo y buena energía al equipo.' } },
-  { left:{ dom:'p', text:'Me encanta reunir información que podría ser útil más adelante.' },                          right:{ dom:'e', text:'Mis valores guían cada decisión que tomo, buscando siempre trabajo significativo.' } },
-  { left:{ dom:'r', text:'Observo las cualidades únicas de cada persona.' },                                           right:{ dom:'i', text:'Confío en mis decisiones, incluso si van contra la corriente.' } },
-  { left:{ dom:'e', text:'Tengo una dirección clara y me concentro en mis metas, priorizando lo que me acerca a ellas.' }, right:{ dom:'r', text:'Reconozco y cultivo el potencial de los demás.' } },
-  { left:{ dom:'i', text:'Me entusiasma convertir algo bueno en excelente.' },                                         right:{ dom:'p', text:'Investigo el pasado para entender mejor el presente.' } },
-  { left:{ dom:'p', text:'Encuentro patrones en la historia que me ayudan a tomar decisiones.' },                      right:{ dom:'i', text:'Me encanta el reto de conocer nuevas personas, disfruto de romper el hielo.' } },
-  { left:{ dom:'r', text:'Soy auténtico al compartir mis emociones para crear vínculos reales.' },                    right:{ dom:'e', text:'Necesito que lo que hago tenga un propósito profundo y esté alineado con mi ética personal.' } },
+  // E vs I (5 pares)
+  { left:{ dom:'e', text:'Siento el deseo constante de alcanzar metas.' },                                              right:{ dom:'i', text:'Yo hago que las cosas sucedan, transformando pensamientos en acciones.' } },
+  { left:{ dom:'e', text:'Soy experto en organizar y optimizar recursos, para maximizar los esfuerzos.' },              right:{ dom:'i', text:'No me incomoda tomar el control cuando otros dudan.' } },
+  { left:{ dom:'e', text:'Mis valores guían cada decisión que tomo, buscando siempre trabajo significativo.' },         right:{ dom:'i', text:'Disfruto hablar en público y conectar con las personas a través de ideas.' } },
+  { left:{ dom:'e', text:'Me anticipo a los posibles riesgos y obstáculos en todo momento.' },                          right:{ dom:'i', text:'Me impulsa saber que puedo destacar frente a otros.' } },
+  { left:{ dom:'e', text:'Promuevo la estructura, creando rutinas y planes detallados para mantener el control y la productividad.' }, right:{ dom:'i', text:'Me entusiasma convertir algo bueno en excelente.' } },
+
+  // E vs P (5 pares)
+  { left:{ dom:'e', text:'Tengo una dirección clara y me concentro en mis metas, priorizando lo que me acerca a ellas.' }, right:{ dom:'p', text:'Entiendo todas las variables y cómo se relacionan antes de tomar una decisión.' } },
+  { left:{ dom:'e', text:'Siempre cumplo aquello en lo que me comprometí.' },                                            right:{ dom:'p', text:'Investigo el pasado para entender mejor el presente.' } },
+  { left:{ dom:'e', text:'Disfruto resolver problemas, analizar fallos y restaurar las cosas.' },                       right:{ dom:'p', text:'Me entusiasma imaginar cómo podría ser el futuro.' } },
+  { left:{ dom:'e', text:'Cada día, debo lograr algo tangible para sentirme bien conmigo mismo.' },                     right:{ dom:'p', text:'Disfruto encontrar nuevas formas de ver o resolver las cosas.' } },
+  { left:{ dom:'e', text:'Me gusta gestionar múltiples variables a la vez, busco la mejor configuración posible para avanzar.' }, right:{ dom:'p', text:'Me encanta reunir información que podría ser útil más adelante.' } },
+
+  // E vs R (6 pares)
+  { left:{ dom:'e', text:'Necesito que lo que hago tenga un propósito profundo y esté alineado con mi ética personal.' }, right:{ dom:'r', text:'Me adapto con facilidad a los cambios inesperados.' } },
+  { left:{ dom:'e', text:'Analizo cuidadosamente los riesgos y consecuencias antes de tomar una decisión.' },           right:{ dom:'r', text:'Creo que todo está conectado y tiene un propósito, la casualidad no existe.' } },
+  { left:{ dom:'e', text:'Necesito que las cosas sigan un orden lógico para sentirme tranquilo y ser más eficaz.' },    right:{ dom:'r', text:'Disfruto ver a las personas crecer y mejorar.' } },
+  { left:{ dom:'e', text:'Soy muy eficiente en descartar lo que no me aporta valor para alcanzar mis objetivos.' },     right:{ dom:'r', text:'Puedo sentir lo que otras personas están experimentando.' } },
+  { left:{ dom:'e', text:'Me hago cargo de mis errores, buscando corregirlos.' },                                       right:{ dom:'r', text:'Me gusta tener en cuenta la opinión de todos, para que se sientan escuchados.' } },
+  { left:{ dom:'e', text:'Me energiza identificar soluciones y mejorar lo que no funciona correctamente.' },            right:{ dom:'r', text:'Observo las cualidades únicas de cada persona.' } },
+
+  // I vs P (6 pares)
+  { left:{ dom:'i', text:'No necesito saber todo de un tema para iniciar la acción, puedo aprender en el proceso.' },   right:{ dom:'p', text:'Me gusta profundizar en mis pensamientos.' } },
+  { left:{ dom:'i', text:'Me siento cómodo enfrentando tensiones para lograr resultados.' },                            right:{ dom:'p', text:'Disfruto estar aprendiendo de temas nuevos porque me gusta superarme.' } },
+  { left:{ dom:'i', text:'Me encanta inspirar usando ejemplos y metáforas.' },                                          right:{ dom:'p', text:'Identifico rápidamente diferentes caminos para alcanzar un objetivo.' } },
+  { left:{ dom:'i', text:'No me conformo con hacer las cosas bien, quiero ser el mejor.' },                             right:{ dom:'p', text:'Me gusta descomponer los problemas hasta entenderlos a fondo.' } },
+  { left:{ dom:'i', text:'Identifico lo que hace destacar a una persona y busco potenciar esas cualidades.' },          right:{ dom:'p', text:'Encuentro patrones en la historia que me ayudan a tomar decisiones.' } },
+  { left:{ dom:'i', text:'Confío en mis decisiones, incluso si van contra la corriente.' },                             right:{ dom:'p', text:'Uso mi visión del futuro para motivarme y motivar a otros.' } },
+
+  // I vs R (5 pares)
+  { left:{ dom:'i', text:'Busco dejar huella en lo que hago y ser reconocido por ello.' },                              right:{ dom:'r', text:'Transmito entusiasmo y buena energía al equipo.' } },
+  { left:{ dom:'i', text:'Me encanta el reto de conocer nuevas personas, disfruto de romper el hielo.' },               right:{ dom:'r', text:'Me gusta profundizar las relaciones que ya tengo.' } },
+  { left:{ dom:'i', text:'Sé que puedo asumir riesgos y seguir mi propio juicio.' },                                    right:{ dom:'r', text:'Vivo el presente y tomo decisiones día a día sin aferrarme al control total.' } },
+  { left:{ dom:'i', text:'Me gusta estar rodeado de personas, ideas y proyectos que sean importantes o admirables.' },  right:{ dom:'r', text:'Me siento responsable por el impacto que tengo en otros y en el mundo.' } },
+  { left:{ dom:'i', text:'Sé cómo ganarme a las personas, caerles bien y crear conexiones.' },                          right:{ dom:'r', text:'Reconozco y cultivo el potencial de los demás.' } },
+
+  // P vs R (5 pares)
+  { left:{ dom:'p', text:'Conecto ideas distintas para generar soluciones innovadoras.' },                              right:{ dom:'r', text:'Ayudo a los demás a poner en palabras lo que sienten.' } },
+  { left:{ dom:'p', text:'Disfruto explorar y aprender sobre muchos temas distintos.' },                                right:{ dom:'r', text:'Me incomoda el conflicto, intento buscar el "ganar-ganar" para que todos estén de acuerdo.' } },
+  { left:{ dom:'p', text:'Aprecio los debates intelectuales.' },                                                        right:{ dom:'r', text:'Sé como tratar a cada persona, para darle a cada quien lo que necesita.' } },
+  { left:{ dom:'p', text:'Me motiva el proceso de mejorar mis habilidades y conocimientos.' },                          right:{ dom:'r', text:'Encuentro razones para celebrar incluso en los pequeños logros.' } },
+  { left:{ dom:'p', text:'Evalúo distintas alternativas hasta encontrar la más efectiva.' },                            right:{ dom:'r', text:'Soy auténtico al compartir mis emociones para crear vínculos reales.' } },
 ];
 
 const TALENT_CODES = ['e1','e2','e3','e4','e5','e6','e7','e8','i1','i2','i3','i4','i5','i6','i7','i8','p1','p2','p3','p4','p5','p6','p7','p8','r1','r2','r3','r4','r5','r6','r7','r8'];
@@ -319,10 +344,13 @@ function renderInicio() {
 }
 
 // ---------- SWIPE ----------
+const NEUTRO_HIDDEN_LAST = 4;  // Hide Neutro for the last N questions
+
 function renderSwipe() {
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex; flex-direction:column; gap:14px; flex:1;';
   const total = COMPARISONS.length;
+  const showNeutro = state.idx < (total - NEUTRO_HIDDEN_LAST);
   wrap.innerHTML = `
     <div class="progress">${Array.from({length: total}).map((_,i) => `<span style="${i < state.idx ? 'background: var(--ink);' : ''}"></span>`).join('')}</div>
     <div class="counter">${state.idx + 1} de ${total}</div>
@@ -332,6 +360,7 @@ function renderSwipe() {
       <span class="hint">Arrastra o toca</span>
       <button class="fab right" id="fab-right" aria-label="Elegir derecha">→</button>
     </div>
+    ${showNeutro ? `<button class="btn-neutro" id="btn-neutro">Ninguna me describe · saltar</button>` : ''}
   `;
   root.appendChild(wrap);
 
@@ -410,6 +439,8 @@ function renderSwipe() {
 
   wrap.querySelector('#fab-left').addEventListener('click', () => choose('left'));
   wrap.querySelector('#fab-right').addEventListener('click', () => choose('right'));
+  const neutroBtn = wrap.querySelector('#btn-neutro');
+  if (neutroBtn) neutroBtn.addEventListener('click', () => choose('neutro'));
 }
 
 function releaseCard(card, dir) {
@@ -420,9 +451,11 @@ function releaseCard(card, dir) {
 }
 
 function choose(dir) {
-  const c = COMPARISONS[state.idx];
-  const dom = dir === 'left' ? c.left.dom : c.right.dom;
-  state.scores[dom] += 1;
+  if (dir !== 'neutro') {
+    const c = COMPARISONS[state.idx];
+    const dom = dir === 'left' ? c.left.dom : c.right.dom;
+    state.scores[dom] += 1;
+  }
   state.idx += 1;
   if (state.idx >= COMPARISONS.length) { state.screen = 'resultados'; }
   render();
@@ -430,7 +463,7 @@ function choose(dir) {
 
 // ---------- RESULTADOS ----------
 function renderResultados() {
-  const total = COMPARISONS.length;
+  const total = Object.values(state.scores).reduce((a, b) => a + b, 0) || 1;
   const pct = Object.fromEntries(
     Object.keys(DOMAINS).map(k => [k, Math.round(state.scores[k] / total * 100)])
   );
@@ -617,7 +650,7 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweLPlnEHzvnWp8rvFNd
 
 function submitResults() {
   if (!SCRIPT_URL) return;
-  const total = COMPARISONS.length;
+  const total = Object.values(state.scores).reduce((a, b) => a + b, 0) || 1;
   const pct = Object.fromEntries(
     Object.keys(DOMAINS).map(k => [k, Math.round(state.scores[k] / total * 100)])
   );
