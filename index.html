@@ -505,7 +505,7 @@ function renderResultados() {
       ${Object.entries(DOMAINS).map(([k, d]) => `
         <div class="row" style="background:${d.soft}; color:${d.deep};">
           <span class="name">${glyph(k, d.color)} ${d.name}</span>
-          <span class="bar"><i style="width:${pct[k]}%; background:${d.color};"></i></span>
+          <span class="bar"><i style="width:${Math.min(100, pct[k] * 4)}%; background:${d.color};"></i></span>
           <span class="pct" style="color:${d.color};">${pct[k]}%</span>
         </div>
       `).join('')}
