@@ -300,6 +300,7 @@ const state = {
   scores: { e: 0, i: 0, p: 0, r: 0 },
   queue: [],
   backups: { ei: [], ep: [], er: [], ip: [], ir: [], pr: [] },
+  submitted: false,
 };
 
 const root = document.getElementById('root');
@@ -368,6 +369,7 @@ function renderInicio() {
   startBtn.addEventListener('click', () => {
     state.idx = 0;
     state.scores = { e: 0, i: 0, p: 0, r: 0 };
+    state.submitted = false;
     state.queue = MAIN_QUESTIONS.map(q => q);
     state.backups = {
       ei: [...BACKUP_QUESTIONS.ei],
@@ -500,7 +502,10 @@ function choose(dir) {
   const dom = dir === 'left' ? c.left.dom : c.right.dom;
   state.scores[dom] += 1;
   state.idx += 1;
-  if (state.idx >= state.queue.length) { state.screen = 'resultados'; }
+  if (state.idx >= state.queue.length) {
+    state.screen = 'resultados';
+    submitResults();
+  }
   render();
 }
 
@@ -588,15 +593,11 @@ function renderCurso() {
     </div>
 
     <p style="font-size:12px; color: var(--ink-3); text-align:center; margin:0; line-height:1.5; padding: 10px 14px; background: var(--surface-soft); border-radius: 12px;">
-      Para recibir tus resultados por correo, presiona <b style="color: var(--ink);">Aprender a potenciarlo</b>.
+      ✓ Te enviamos los resultados a <b style="color: var(--ink);">${escapeHTML(state.correo || '—')}</b>. Revísalos en tu correo.
     </p>
 
     <a class="btn primary" id="go-skool" href="${SKOOL_URL}" target="_blank" rel="noopener" style="background:${td.color}; text-decoration:none; text-align:center; display:block;">Aprender a potenciarlo →</a>
     <button class="btn" id="go-back" style="background: transparent; box-shadow: inset 0 0 0 2px var(--surface-line); color: var(--ink-3);">← Volver a resultados</button>
-
-    <p style="font-size:11px; color: var(--ink-muted); text-align:center; margin:0; line-height:1.6;">
-      Enviaremos los resultados a <b style="color: var(--ink);">${escapeHTML(state.correo || '—')}</b>.
-    </p>
   `;
   root.appendChild(wrap);
   wrap.querySelector('#go-back').addEventListener('click', () => { state.screen = 'resultados'; render(); });
@@ -693,7 +694,8 @@ function escapeHTML(s) {
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbweLPlnEHzvnWp8rvFNdje0vk4CPycpz2Cb2aZVaAxgiyIXtpQSy_m0BAo97_5MNRdk/exec';
 
 function submitResults() {
-  if (!SCRIPT_URL) return;
+  if (!SCRIPT_URL || state.submitted) return;
+  state.submitted = true;
   const total = Object.values(state.scores).reduce((a, b) => a + b, 0) || 1;
   const pct = Object.fromEntries(
     Object.keys(DOMAINS).map(k => [k, Math.round(state.scores[k] / total * 100)])
